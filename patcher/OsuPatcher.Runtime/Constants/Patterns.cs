@@ -1,0 +1,515 @@
+using System.Reflection.Emit;
+
+namespace OsuPatcher.Runtime.Constants
+{
+    public static class Patterns
+    {
+        #region Options
+
+        // Options.AddElement
+        public static readonly OpCode[] Options_AddElement = new[]
+        {
+            OpCodes.Ldarg_0,
+            OpCodes.Ldfld,
+            OpCodes.Ldarg_1,
+            OpCodes.Callvirt,
+            OpCodes.Ldarg_1,
+            OpCodes.Callvirt,
+            OpCodes.Brfalse_S,
+            OpCodes.Ldarg_1,
+            OpCodes.Callvirt,
+            OpCodes.Callvirt,
+            OpCodes.Stloc_0,
+            OpCodes.Br_S,
+            OpCodes.Ldloc_0,
+            OpCodes.Callvirt,
+            OpCodes.Stloc_1,
+            OpCodes.Ldloc_1,
+            OpCodes.Ldarg_0,
+            OpCodes.Ldftn,
+            OpCodes.Newobj,
+            OpCodes.Callvirt,
+            OpCodes.Ldarg_0,
+            OpCodes.Ldloc_1,
+            OpCodes.Call,
+            OpCodes.Ldloc_0,
+            OpCodes.Callvirt,
+            OpCodes.Brtrue_S,
+            OpCodes.Leave_S,
+            OpCodes.Ldloc_0,
+            OpCodes.Brfalse_S,
+            OpCodes.Ldloc_0,
+            OpCodes.Callvirt,
+            OpCodes.Endfinally,
+            OpCodes.Ldarg_1,
+            OpCodes.Isinst,
+            OpCodes.Stloc_2,
+            OpCodes.Ldloc_2,
+            OpCodes.Brfalse_S,
+            OpCodes.Ldloc_2,
+            OpCodes.Ldarg_0,
+            OpCodes.Ldftn,
+            OpCodes.Newobj,
+            OpCodes.Newobj,
+            OpCodes.Stloc_3,
+            OpCodes.Ldarg_0,
+            OpCodes.Ldfld,
+            OpCodes.Ldloc_3,
+            OpCodes.Callvirt,
+            OpCodes.Ldarg_0,
+            OpCodes.Ldfld,
+            OpCodes.Ldloc_3,
+            OpCodes.Ldfld,
+            OpCodes.Callvirt,
+            OpCodes.Ldarg_0,
+            OpCodes.Ldfld,
+            OpCodes.Ldarg_1,
+            OpCodes.Ldfld,
+            OpCodes.Callvirt,
+            OpCodes.Ret,
+        };
+
+        // PatchOptionsMenu.Target
+        public static readonly OpCode[] PatchOptionsMenu_Target = new[]
+        {
+            OpCodes.Ldarg_0,
+            OpCodes.Ldfld,
+            OpCodes.Ldc_I4_S,
+            OpCodes.Call,
+            OpCodes.Callvirt,
+            OpCodes.Ldarg_0,
+            OpCodes.Ldfld,
+            OpCodes.Ldc_I4_S,
+            OpCodes.Call,
+            OpCodes.Callvirt,
+        };
+
+        // Category Constructor
+        public static readonly OpCode[] Category_Constructor = new[]
+        {
+            OpCodes.Ldarg_0,
+            OpCodes.Ldarga_S,
+            OpCodes.Constrained,
+            OpCodes.Callvirt,
+            OpCodes.Call,
+            OpCodes.Ldarg_0,
+            OpCodes.Ldarga_S,
+            OpCodes.Constrained,
+            OpCodes.Callvirt,
+            OpCodes.Call
+        };
+
+        // Section Constructor
+        public static readonly OpCode[] Section_Constructor = new[]
+        {
+            OpCodes.Ldarg_0,
+            OpCodes.Ldarg_1,
+            OpCodes.Callvirt,
+            OpCodes.Ldc_R4,
+            OpCodes.Ldc_R4,
+            OpCodes.Ldc_R4,
+            OpCodes.Newobj,
+            OpCodes.Ldc_R4,
+            OpCodes.Ldc_I4_1,
+        };
+
+        // Element.SetChildren
+        public static readonly OpCode[] Element_SetChildren = new[]
+        {
+            OpCodes.Ldarg_0,
+            OpCodes.Ldarg_1,
+            OpCodes.Stfld,
+            OpCodes.Ldarg_0,
+            OpCodes.Ldfld,
+            OpCodes.Brfalse_S,
+            OpCodes.Ldarg_0,
+            OpCodes.Ldfld,
+            OpCodes.Callvirt,
+            OpCodes.Stloc_0,
+            OpCodes.Br_S,
+            OpCodes.Ldloc_0,
+            OpCodes.Callvirt,
+            OpCodes.Stloc_1,
+            OpCodes.Ldloc_1,
+            OpCodes.Ldarg_0,
+            OpCodes.Stfld,
+            OpCodes.Ldarg_0,
+            OpCodes.Call,
+            OpCodes.Brfalse_S,
+            OpCodes.Ldloc_1,
+            OpCodes.Ldc_I4_1,
+            OpCodes.Callvirt,
+            OpCodes.Ldloc_0,
+            OpCodes.Callvirt,
+            OpCodes.Brtrue_S,
+            OpCodes.Leave_S,
+            OpCodes.Ldloc_0,
+            OpCodes.Brfalse_S,
+            OpCodes.Ldloc_0,
+            OpCodes.Callvirt,
+            OpCodes.Endfinally,
+        };
+
+        // CheckBox Constructor
+        public static readonly OpCode[] CheckBox_Constructor = new[]
+        {
+            OpCodes.Ldarg_0,
+            OpCodes.Ldarg_3,
+            OpCodes.Stfld,
+            OpCodes.Ldarg_3,
+            OpCodes.Brfalse_S,
+            OpCodes.Ldarg_3,
+            OpCodes.Ldarg_0,
+            OpCodes.Ldftn,
+            OpCodes.Newobj
+        };
+
+        // TextBox Constructor
+        public static readonly OpCode[] TextBox_Constructor = new[]
+        {
+            OpCodes.Ldarg_0,
+            OpCodes.Ldarg_1,
+            OpCodes.Ldarg_3,
+            OpCodes.Call,
+            OpCodes.Ldloc_0,
+            OpCodes.Ldarg_0,
+            OpCodes.Stfld,
+            OpCodes.Ldarg_0,
+            OpCodes.Ldloc_0,
+            OpCodes.Ldfld,
+            OpCodes.Stfld
+        };
+
+        #endregion
+
+        // osu.GameBase:BeginExit
+        // #=zTp6JhLFlT$nSTXDxMw==:#=zzb6bonY=
+        public static readonly OpCode[] GameBase_BeginExit = new[]
+        {
+            OpCodes.Ldsfld,
+            OpCodes.Ldfld,
+            OpCodes.Ldsfld,
+            OpCodes.Dup,
+            OpCodes.Brtrue_S,
+            OpCodes.Pop,
+            OpCodes.Ldsfld,
+            OpCodes.Ldftn,
+            OpCodes.Newobj,
+            OpCodes.Dup,
+            OpCodes.Stsfld,
+            OpCodes.Callvirt,
+            OpCodes.Callvirt,
+            OpCodes.Ldc_I4_0
+        };
+
+        // Transition Time
+        /// <summary>
+        /// Updates the transition time for the game
+        /// 100 -> 200
+        /// </summary>
+        public static readonly OpCode[] PatchTransition_Target = new[]
+        {
+            OpCodes.Ldsfld,
+            OpCodes.Ldc_I4_2,
+            OpCodes.Bne_Un_S,
+            OpCodes.Ldsfld,
+            OpCodes.Ldc_R8,
+            OpCodes.Ble_Un,
+            OpCodes.Ldsfld,
+            OpCodes.Call,
+            OpCodes.Brfalse_S,
+            OpCodes.Ldsfld,
+            OpCodes.Callvirt
+        };
+
+        // osu.GameplayElements.HitObjectManager::Hit
+        /*
+           if (#=zM8XZInS60bPkwTMTkrfebdLZOZcSyFcV90Pe2PH5kYLP == (#=zM8XZInS60bPkwTMTkrfebdLZOZcSyFcV90Pe2PH5kYLP)(-131072) &&
+           !#=zS_AS2zptucP0wp1z7HOrPzQb$3ab.#=z98ZION9Ll4et$efEiA== &&
+           !#=zS_AS2zptucP0wp1z7HOrPzQb$3ab.#=zcxdiu2iP13Mis9wLlw==)
+         */
+        public static readonly OpCode[] PatchRelaxMiss_Target = new[]
+        {
+            OpCodes.Ldarg_1,
+            OpCodes.Ldc_I4_8,
+            OpCodes.Callvirt,
+            OpCodes.Stloc_S,
+            OpCodes.Ldloc_0,
+            OpCodes.Ldc_I4,
+            OpCodes.Bne_Un,
+            OpCodes.Ldsfld,
+            OpCodes.Brtrue,
+            OpCodes.Ldsfld,
+            OpCodes.Brtrue
+        };
+
+        // LocalisationManager.GetString(OsuString stringType)
+        public static readonly OpCode[] LocalisationManager_Target = new[]
+        {
+            OpCodes.Ldsfld,
+            OpCodes.Brtrue_S,
+            OpCodes.Ldsfld,
+            OpCodes.Call,
+            OpCodes.Pop,
+            OpCodes.Nop,
+            OpCodes.Ldsfld,
+            OpCodes.Ldarg_0,
+            OpCodes.Callvirt,
+            OpCodes.Stloc_0,
+            OpCodes.Leave_S,
+            OpCodes.Pop,
+            OpCodes.Ldsfld,
+            OpCodes.Stloc_0,
+            OpCodes.Leave_S,
+            OpCodes.Ldloc_0,
+            OpCodes.Ret,
+        };
+
+        // osu.Graphics.Notifications.NotificationManager::ShowMessage
+        public static readonly OpCode[] NotificationManager_ShowMessage = new[]
+        {
+            OpCodes.Ldarg_1,
+            OpCodes.Stfld,
+            OpCodes.Ldloc_0,
+            OpCodes.Ldarg_3,
+            OpCodes.Stfld,
+            OpCodes.Ldsfld,
+            OpCodes.Ldloc_0,
+            OpCodes.Ldftn,
+            OpCodes.Newobj
+        };
+
+        // osu.Graphics.Notifications.NotificationManager::ShowMessageMassive
+        public static readonly OpCode[] NotificationManager_ShowMessageMassive = new[]
+        {
+            OpCodes.Ldarg_1,
+            OpCodes.Stfld,
+            OpCodes.Ldloc_0,
+            OpCodes.Ldarg_2,
+            OpCodes.Stfld,
+            OpCodes.Ldloc_0,
+            OpCodes.Ldfld,
+            OpCodes.Brtrue_S,
+            OpCodes.Ret,
+        };
+
+        // osu.GameModes.Ranking.Ranking::loadLocalUserScore
+        /*
+            Mods mods = #=zS_AS2zptucP0wp1z7HOrPzQb$3ab.#=zT1XDrLO5K8XN.#=zYI457PYyRc56;
+			Mods mods2 = Mods.Relax;
+			Mods mods3 = mods;
+			if ((mods3 & mods2) <= Mods.None)
+         */
+        public static readonly OpCode[] PatchAutoSaveRelaxScores_Target = new[]
+        {
+            OpCodes.Ldarg_0,
+            OpCodes.Ldfld,
+            OpCodes.Ldfld,
+            OpCodes.Brfalse,
+            OpCodes.Ldarg_0,
+            OpCodes.Ldfld,
+            OpCodes.Brtrue,
+            OpCodes.Ldsfld,
+            OpCodes.Ldfld,
+            OpCodes.Call,
+            OpCodes.Ldc_I4,
+            OpCodes.Stloc_2,
+            OpCodes.Stloc_1,
+            OpCodes.Ldloc_1,
+            OpCodes.Ldloc_2,
+            OpCodes.And,
+            OpCodes.Ldc_I4_0,
+            OpCodes.Cgt,
+            OpCodes.Brtrue,
+            OpCodes.Ldsfld,
+            OpCodes.Ldfld,
+            OpCodes.Call,
+            OpCodes.Ldc_I4,
+            OpCodes.Stloc_2,
+            OpCodes.Stloc_1,
+            OpCodes.Ldloc_1,
+            OpCodes.Ldloc_2,
+            OpCodes.And,
+            OpCodes.Ldc_I4_0,
+            OpCodes.Cgt,
+            OpCodes.Brtrue
+        };
+
+        // osu.GameModes.Play.Rulesets.Ruleset::IncreaseScoreHit
+        /*
+           if (this.#=z$kEf6vEzCgIu.#=zpQm6Nqd6BI0u() > 20 && !#=zS_AS2zptucP0wp1z7HOrPzQb$3ab.#=z98ZION9Ll4et$efEiA== &&
+           !#=zS_AS2zptucP0wp1z7HOrPzQb$3ab.#=zcxdiu2iP13Mis9wLlw==)
+         */
+        public static readonly OpCode[] PatchRelaxComboBreak_Target = new[]
+        {
+            OpCodes.Ldarg_0,
+            OpCodes.Ldfld,
+            OpCodes.Callvirt,
+            OpCodes.Ldc_I4_S,
+            OpCodes.Ble_S,
+            OpCodes.Ldsfld,
+            OpCodes.Brtrue_S,
+            OpCodes.Ldsfld,
+            OpCodes.Brtrue_S
+        };
+
+        public static readonly OpCode[] PlayerInitialize_Target = new[]
+        {
+            OpCodes.Ldarg_0,
+            OpCodes.Call,
+            OpCodes.Stfld,
+            OpCodes.Ldarg_0,
+            OpCodes.Call,
+            OpCodes.Ldc_I4_0,
+            OpCodes.Stsfld,
+            OpCodes.Ldsfld,
+            OpCodes.Ldarg_0,
+            OpCodes.Ldftn,
+            OpCodes.Newobj
+        };
+
+        public static readonly OpCode[] PlayerUpdate_Target = new[]
+        {
+            OpCodes.Ldarg_0,
+            OpCodes.Call,
+            OpCodes.Ldarg_0,
+            OpCodes.Call,
+            OpCodes.Brfalse_S,
+            OpCodes.Ret,
+            OpCodes.Ldarg_0,
+            OpCodes.Ldfld,
+            OpCodes.Brfalse_S,
+            OpCodes.Ldarg_0,
+            OpCodes.Ldfld,
+            OpCodes.Callvirt,
+        };
+
+        public static readonly OpCode[] PlayerOnLoadComplete_Target = new[]
+        {
+            OpCodes.Ldc_I4_0,
+            OpCodes.Stsfld,
+            OpCodes.Ldarg_1,
+            OpCodes.Brtrue_S,
+            OpCodes.Call,
+            OpCodes.Ldc_I4_1,
+            OpCodes.Call,
+            OpCodes.Ldc_I4,
+            OpCodes.Call,
+            OpCodes.Call,
+            OpCodes.Ldc_I4,
+            OpCodes.Ldnull,
+            OpCodes.Call,
+            OpCodes.Ldarg_0,
+            OpCodes.Ldfld,
+            OpCodes.Ldfld,
+            OpCodes.Newobj,
+            OpCodes.Call,
+            OpCodes.Ldc_I4_1,
+            OpCodes.Ret,
+            OpCodes.Ldarg_0,
+            OpCodes.Ldfld,
+            OpCodes.Ldfld,
+            OpCodes.Call,
+            OpCodes.Ldc_I4_1,
+            OpCodes.Call,
+            OpCodes.Ldarg_0,
+            OpCodes.Ldc_I4_1
+        };
+
+        public static readonly OpCode[] TextureManager_Load = new[]
+        {
+            OpCodes.Ldarg_0,
+            OpCodes.Brtrue_S,
+            OpCodes.Ldnull,
+            OpCodes.Ret,
+            OpCodes.Ldsfld,
+            OpCodes.Brfalse_S,
+            OpCodes.Ldarg_1,
+            OpCodes.Ldc_I4_4,
+            OpCodes.Beq_S,
+            OpCodes.Ldarg_1,
+            OpCodes.Ldc_I4_S,
+            OpCodes.And,
+        };
+
+        public static readonly OpCode[] Sprite_Constructor = new[]
+        {
+            OpCodes.Ldarg_0,
+            OpCodes.Ldarg_S,
+            OpCodes.Call,
+            OpCodes.Ldarg_0,
+            OpCodes.Ldarg_1,
+            OpCodes.Stfld,
+            OpCodes.Ldarg_0,
+            OpCodes.Ldarg_3,
+            OpCodes.Stfld,
+            OpCodes.Ldarg_0,
+            OpCodes.Callvirt,
+            OpCodes.Ldarg_0,
+            OpCodes.Callvirt
+        };
+
+        public static readonly OpCode[] Text_Constructor = new[]
+        {
+            OpCodes.Ldarg_0,
+            OpCodes.Ldc_I4_1,
+            OpCodes.Stfld,
+            OpCodes.Ldarg_0,
+            OpCodes.Ldnull,
+            OpCodes.Ldc_I4_6,
+            OpCodes.Ldc_I4_0,
+            OpCodes.Ldc_I4_0,
+            OpCodes.Ldarg_3
+        };
+
+        public static readonly OpCode[] Text_Setter = new[]
+        {
+            OpCodes.Ldarg_0,
+            OpCodes.Ldfld,
+            OpCodes.Ldarg_1,
+            OpCodes.Call,
+            OpCodes.Brfalse_S,
+            OpCodes.Ret,
+            OpCodes.Ldarg_0,
+            OpCodes.Ldc_I4_1,
+            OpCodes.Stfld,
+            OpCodes.Ldarg_0,
+            OpCodes.Ldarg_1
+        };
+
+        public static readonly OpCode[] SpriteText_Constructor = new[]
+        {
+            OpCodes.Ldarg_0,
+            OpCodes.Ldnull,
+            OpCodes.Ldarg_S,
+            OpCodes.Ldarg_S,
+            OpCodes.Ldarg_S,
+            OpCodes.Ldarg_S,
+            OpCodes.Ldarg_S,
+            OpCodes.Ldarg_S,
+            OpCodes.Ldarg_S,
+            OpCodes.Call
+        };
+
+        public static readonly OpCode[] Text_RefreshTexture = new[]
+        {
+            OpCodes.Ldarg_0,
+            OpCodes.Ldfld,
+            OpCodes.Stloc_0,
+            OpCodes.Ldarg_0,
+            OpCodes.Ldc_I4_0,
+            OpCodes.Stfld,
+            OpCodes.Ldarg_0,
+            OpCodes.Callvirt,
+            OpCodes.Call,
+            OpCodes.Brfalse_S,
+            OpCodes.Ldarg_0,
+            OpCodes.Ldflda,
+            OpCodes.Ldfld,
+            OpCodes.Ldc_R4,
+            OpCodes.Bne_Un_S,
+            OpCodes.Ldarg_0,
+            OpCodes.Ldarg_0
+        };
+    }
+}

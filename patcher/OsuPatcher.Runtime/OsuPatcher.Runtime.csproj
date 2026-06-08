@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E5189888-C6F1-4874-B539-DA8112A97C94}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>OsuPatcher.Runtime</RootNamespace>
+    <AssemblyName>OsuPatcher.Runtime</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="0Harmony, Version=2.3.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Lib.Harmony.2.3.3\lib\net472\0Harmony.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Config.cs" />
+    <Compile Include="Constants\OsuConstants.cs" />
+    <Compile Include="Constants\Patterns.cs" />
+    <Compile Include="Graphics\pDrawable.cs" />
+    <Compile Include="Graphics\pSprite.cs" />
+    <Compile Include="Graphics\pSpriteText.cs" />
+    <Compile Include="Graphics\pText.cs" />
+    <Compile Include="Graphics\Skinning\SkinSource.cs" />
+    <Compile Include="Graphics\Sprites\Clocks.cs" />
+    <Compile Include="Graphics\Sprites\Fields.cs" />
+    <Compile Include="Graphics\Sprites\Origin.cs" />
+    <Compile Include="Helpers\Xna.cs" />
+    <Compile Include="Options\Category.cs" />
+    <Compile Include="Options\CheckBox.cs" />
+    <Compile Include="Options\Element.cs" />
+    <Compile Include="Options\FontAwesome.cs" />
+    <Compile Include="Options\Options.cs" />
+    <Compile Include="Options\Section.cs" />
+    <Compile Include="Options\TextBox.cs" />
+    <Compile Include="Patches\PerformanceCalculationPatch.cs" />
+    <Compile Include="Patches\PlayerOnLoadCompletePatch.cs" />
+    <Compile Include="Patches\PlayerUpdatePatch.cs" />
+    <Compile Include="Patches\TransitionPatch.cs" />
+    <Compile Include="Patches\LocalisationPatch.cs" />
+    <Compile Include="Rosu\Calculator.cs" />
+    <Compile Include="Rosu\FFI\Optionu32.cs" />
+    <Compile Include="Rosu\FFI\Sliceu8.cs" />
+    <Compile Include="Play\Performance.cs" />
+    <Compile Include="Resolver\Score.cs" />
+    <Compile Include="Resolver\SpriteManager.cs" />
+    <Compile Include="Utils\BaseConfig.cs" />
+    <Compile Include="Utils\Logger.cs" />
+    <Compile Include="Main.cs" />
+    <Compile Include="Helpers\ILPatch.cs" />
+    <Compile Include="Patches\RelaxMissPatch.cs" />
+    <Compile Include="Patches\OptionsPatch.cs" />
+    <Compile Include="Wrappers\Color.cs" />
+    <Compile Include="Wrappers\NotificationManager.cs" />
+    <Compile Include="Wrappers\GameBase.cs" />
+    <Compile Include="Patches\RelaxComboBreakPatch.cs" />
+    <Compile Include="Patches\AutoSaveRelaxScoresPatch.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Helpers\ILReader.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
