@@ -1,0 +1,60 @@
+name: Build patcher-ui
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-2022
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Rust (i686-pc-windows-msvc)
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: i686-pc-windows-msvc
+
+      - name: Cache Rust build
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: akatsuki-pp-ffi
+
+      - name: Add MSBuild to PATH
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Set up NuGet
+        uses: NuGet/setup-nuget@v2
+
+      # 1. Build Rust FFI DLL
+      - name: Build Rust FFI DLL
+        run: cargo build --release --target i686-pc-windows-msvc --manifest-path akatsuki-pp-ffi\Cargo.toml
+
+      # 2. Restore and build runtime DLL
+      - name: Restore runtime packages
+        run: nuget restore patcher\OsuPatcher.Runtime\packages.config -PackagesDirectory packages
+
+      - name: Build runtime DLL
+        run: msbuild patcher\OsuPatcher.Runtime.sln /p:Configuration=Release /p:Platform="Any CPU"
+
+      # 3. Copy DLLs into the UI payload
+      - name: Copy DLLs into UI payload
+        run: |
+          Copy-Item patcher\OsuPatcher.Runtime\bin\Release\OsuPatcher.Runtime.dll patcher-ui\OsuPatcher.UI\Payload\ -Force
+          Copy-Item patcher\OsuPatcher.Runtime\bin\Release\0Harmony.dll            patcher-ui\OsuPatcher.UI\Payload\ -Force
+          Copy-Item akatsuki-pp-ffi\target\i686-pc-windows-msvc\release\akatsuki_pp_ffi.dll patcher-ui\OsuPatcher.UI\Payload\ -Force
+
+      # 4. Restore ahd build the UI (make patcher-ui.exe)
+      - name: Restore UI packages
+        run: nuget restore patcher-ui\OsuPatcher.UI\packages.config -PackagesDirectory patcher-ui\packages
+
+      - name: Build UI
+        run: msbuild patcher-ui\OsuPatcher.UI.sln /p:Configuration=Release /p:Platform="Any CPU"
+
+      - name: Upload patcher-ui.exe artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: patcher-ui
+          path: patcher-ui\OsuPatcher.UI\bin\Release\patcher-ui.exe
+          if-no-files-found: error
