@@ -37,37 +37,27 @@
             <HintPath>..\packages\HoLLy.ManagedInjector.1.0.0\lib\netstandard2.0\ManagedInjector.Lib.dll</HintPath>
             <Private>false</Private>
         </Reference>
-        <Reference Include="PresentationCore"/>
-        <Reference Include="PresentationFramework"/>
         <Reference Include="System"/>
         <Reference Include="System.Core"/>
+        <Reference Include="System.Drawing"/>
         <Reference Include="System.Management"/>
         <Reference Include="System.Runtime.Serialization"/>
+        <Reference Include="System.Windows.Forms"/>
         <Reference Include="System.Xml"/>
-        <Reference Include="System.Xaml"/>
-        <Reference Include="WindowsBase"/>
     </ItemGroup>
     <ItemGroup>
-        <ApplicationDefinition Include="App.xaml">
-            <Generator>MSBuild:Compile</Generator>
-            <SubType>Designer</SubType>
-        </ApplicationDefinition>
-        <Page Include="MainWindow.xaml">
-            <Generator>MSBuild:Compile</Generator>
-            <SubType>Designer</SubType>
-        </Page>
-        <Compile Include="App.xaml.cs">
-            <DependentUpon>App.xaml</DependentUpon>
-        </Compile>
+        <Compile Include="Program.cs"/>
+        <Compile Include="MainForm.cs"/>
         <Compile Include="Config.cs"/>
         <Compile Include="InjectorCore.cs"/>
-        <Compile Include="MainWindow.xaml.cs">
-            <DependentUpon>MainWindow.xaml</DependentUpon>
-        </Compile>
     </ItemGroup>
     <ItemGroup>
-        <Resource Include="Assets\logo.png"/>
-        <Resource Include="icon.ico"/>
+        <EmbeddedResource Include="Assets\logo.png">
+            <LogicalName>OsuPatcher.UI.Assets.logo.png</LogicalName>
+        </EmbeddedResource>
+        <EmbeddedResource Include="icon.ico">
+            <LogicalName>OsuPatcher.UI.icon.ico</LogicalName>
+        </EmbeddedResource>
         <None Include="packages.config"/>
     </ItemGroup>
     <!-- Embed dependency DLLs so the output is a single exe -->
