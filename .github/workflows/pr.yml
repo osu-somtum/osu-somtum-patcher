@@ -1,12 +1,11 @@
-name: Build
+name: PR check
 
 on:
-  push:
+  pull_request:
     branches: [main]
-  workflow_dispatch:
 
 concurrency:
-  group: build-${{ github.ref }}
+  group: pr-${{ github.event.pull_request.number }}
   cancel-in-progress: true
 
 jobs:

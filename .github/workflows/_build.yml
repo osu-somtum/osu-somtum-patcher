@@ -1,0 +1,54 @@
+name: build (reusable)
+
+# Shared Windows build used by both build.yml (push / manual) and pr.yml (PR check).
+on:
+  workflow_call:
+
+jobs:
+  build:
+    runs-on: windows-2022
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Rust (i686-pc-windows-msvc)
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: i686-pc-windows-msvc
+
+      - name: Cache Rust build
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: akatsuki-pp-ffi
+
+      - name: Set up .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+
+      # 1. Build Rust FFI DLL (native 32-bit MSVC target)
+      - name: Build Rust FFI DLL
+        run: cargo build --release --target i686-pc-windows-msvc --manifest-path akatsuki-pp-ffi\Cargo.toml
+
+      # 2. Build runtime DLL (dotnet restores PackageReferences automatically)
+      - name: Build runtime DLL
+        run: dotnet build patcher\OsuPatcher.Runtime\OsuPatcher.Runtime.csproj -c Release
+
+      # 3. Copy DLLs into the UI payload so they get embedded into the single exe
+      - name: Copy DLLs into UI payload
+        run: |
+          Copy-Item patcher\OsuPatcher.Runtime\bin\Release\OsuPatcher.Runtime.dll patcher-ui\OsuPatcher.UI\Payload\ -Force
+          Copy-Item patcher\OsuPatcher.Runtime\bin\Release\0Harmony.dll            patcher-ui\OsuPatcher.UI\Payload\ -Force
+          Copy-Item akatsuki-pp-ffi\target\i686-pc-windows-msvc\release\akatsuki_pp_ffi.dll patcher-ui\OsuPatcher.UI\Payload\ -Force
+
+      # 4. Build the UI (produces a single patcher-ui.exe)
+      - name: Build UI
+        run: dotnet build patcher-ui\OsuPatcher.UI\OsuPatcher.UI.csproj -c Release
+
+      - name: Upload patcher-ui.exe artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: patcher-ui
+          path: patcher-ui\OsuPatcher.UI\bin\Release\patcher-ui.exe
+          if-no-files-found: error

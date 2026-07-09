@@ -1,95 +1,62 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-    <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props"
-            Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-    <PropertyGroup>
-        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-        <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-        <ProjectGuid>{9B2C3D4E-5F6A-7B8C-9D0E-1F2A3B4C5D6E}</ProjectGuid>
-        <OutputType>WinExe</OutputType>
-        <AppDesignerFolder>Properties</AppDesignerFolder>
-        <RootNamespace>OsuPatcher.UI</RootNamespace>
-        <AssemblyName>patcher-ui</AssemblyName>
-        <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-        <ApplicationIcon>icon.ico</ApplicationIcon>
-    </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-        <PlatformTarget>AnyCPU</PlatformTarget>
-        <DebugSymbols>true</DebugSymbols>
-        <DebugType>full</DebugType>
-        <Optimize>false</Optimize>
-        <OutputPath>bin\Debug\</OutputPath>
-        <DefineConstants>DEBUG;TRACE</DefineConstants>
-    </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-        <PlatformTarget>AnyCPU</PlatformTarget>
-        <DebugType>pdbonly</DebugType>
-        <Optimize>true</Optimize>
-        <OutputPath>bin\Release\</OutputPath>
-        <DefineConstants>TRACE</DefineConstants>
-    </PropertyGroup>
-    <ItemGroup>
-        <Reference Include="Iced, Version=1.11.2.0, Culture=neutral, PublicKeyToken=5baba79f4264913b, processorArchitecture=MSIL">
-            <HintPath>..\packages\Iced.1.11.2\lib\net45\Iced.dll</HintPath>
-            <Private>false</Private>
-        </Reference>
-        <Reference Include="ManagedInjector.Lib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-            <HintPath>..\packages\HoLLy.ManagedInjector.1.0.0\lib\netstandard2.0\ManagedInjector.Lib.dll</HintPath>
-            <Private>false</Private>
-        </Reference>
-        <Reference Include="PresentationCore"/>
-        <Reference Include="PresentationFramework"/>
-        <Reference Include="System"/>
-        <Reference Include="System.Core"/>
-        <Reference Include="System.Management"/>
-        <Reference Include="System.Runtime.Serialization"/>
-        <Reference Include="System.Xml"/>
-        <Reference Include="System.Xaml"/>
-        <Reference Include="WindowsBase"/>
-    </ItemGroup>
-    <ItemGroup>
-        <ApplicationDefinition Include="App.xaml">
-            <Generator>MSBuild:Compile</Generator>
-            <SubType>Designer</SubType>
-        </ApplicationDefinition>
-        <Page Include="MainWindow.xaml">
-            <Generator>MSBuild:Compile</Generator>
-            <SubType>Designer</SubType>
-        </Page>
-        <Compile Include="App.xaml.cs">
-            <DependentUpon>App.xaml</DependentUpon>
-        </Compile>
-        <Compile Include="Config.cs"/>
-        <Compile Include="InjectorCore.cs"/>
-        <Compile Include="MainWindow.xaml.cs">
-            <DependentUpon>MainWindow.xaml</DependentUpon>
-        </Compile>
-    </ItemGroup>
-    <ItemGroup>
-        <Resource Include="Assets\logo.png"/>
-        <Resource Include="icon.ico"/>
-        <None Include="packages.config"/>
-    </ItemGroup>
-    <!-- Embed dependency DLLs so the output is a single exe -->
-    <ItemGroup>
-        <EmbeddedResource Include="..\packages\Iced.1.11.2\lib\net45\Iced.dll">
-            <LogicalName>Iced.dll</LogicalName>
-        </EmbeddedResource>
-        <EmbeddedResource Include="..\packages\HoLLy.ManagedInjector.1.0.0\lib\netstandard2.0\ManagedInjector.Lib.dll">
-            <LogicalName>ManagedInjector.Lib.dll</LogicalName>
-        </EmbeddedResource>
-        <EmbeddedResource Include="Payload\OsuPatcher.Runtime.dll">
-            <LogicalName>OsuPatcher.Runtime.dll</LogicalName>
-        </EmbeddedResource>
-        <EmbeddedResource Include="Payload\0Harmony.dll">
-            <LogicalName>0Harmony.dll</LogicalName>
-        </EmbeddedResource>
-        <EmbeddedResource Include="Payload\akatsuki_pp_ffi.dll">
-            <LogicalName>akatsuki_pp_ffi.dll</LogicalName>
-        </EmbeddedResource>
-    </ItemGroup>
-    <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
-    <Target Name="RemoveLooseDlls" AfterTargets="Build">
-        <Delete Files="$(OutputPath)OsuPatcher.Runtime.dll;$(OutputPath)0Harmony.dll;$(OutputPath)akatsuki_pp_ffi.dll"/>
-    </Target>
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <OutputType>WinExe</OutputType>
+    <UseWPF>true</UseWPF>
+    <AssemblyName>patcher-ui</AssemblyName>
+    <RootNamespace>OsuPatcher.UI</RootNamespace>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
+    <!-- Keep output at bin\Release\ (no net472\ subfolder) so the artifact path stays stable -->
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <EnableDefaultItems>false</EnableDefaultItems>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml" />
+    <Page Include="MainWindow.xaml" />
+    <Compile Include="App.xaml.cs" />
+    <Compile Include="Config.cs" />
+    <Compile Include="InjectorCore.cs" />
+    <Compile Include="MainWindow.xaml.cs" />
+    <Resource Include="Assets\logo.png" />
+    <Resource Include="icon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- GeneratePathProperty exposes $(PkgIced) / $(PkgHoLLy_ManagedInjector) for embedding below -->
+    <PackageReference Include="Iced" Version="1.11.2" GeneratePathProperty="true" />
+    <PackageReference Include="HoLLy.ManagedInjector" Version="1.0.0" GeneratePathProperty="true" />
+    <!-- Provides the .NET Framework 4.7.2 reference assemblies so this builds on Linux too -->
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
+    <Reference Include="System.Management" />
+  </ItemGroup>
+
+  <!-- Single-exe: embed dependency + payload DLLs. Loaded at runtime by App.AssemblyResolve
+       (Iced / ManagedInjector.Lib) and InjectorCore (the three payload DLLs). -->
+  <ItemGroup>
+    <EmbeddedResource Include="$(PkgIced)\lib\net45\Iced.dll">
+      <LogicalName>Iced.dll</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(PkgHoLLy_ManagedInjector)\lib\netstandard2.0\ManagedInjector.Lib.dll">
+      <LogicalName>ManagedInjector.Lib.dll</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Payload\OsuPatcher.Runtime.dll">
+      <LogicalName>OsuPatcher.Runtime.dll</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Payload\0Harmony.dll">
+      <LogicalName>0Harmony.dll</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Payload\akatsuki_pp_ffi.dll">
+      <LogicalName>akatsuki_pp_ffi.dll</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <!-- The dependency DLLs are embedded, so drop the copy-local copies to keep a single exe -->
+  <Target Name="RemoveLooseDlls" AfterTargets="Build">
+    <Delete Files="$(OutputPath)Iced.dll;$(OutputPath)ManagedInjector.Lib.dll;$(OutputPath)OsuPatcher.Runtime.dll;$(OutputPath)0Harmony.dll;$(OutputPath)akatsuki_pp_ffi.dll" />
+  </Target>
+
 </Project>

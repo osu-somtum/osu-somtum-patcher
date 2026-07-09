@@ -24,33 +24,49 @@ Download `patcher-ui.exe` from [Releases](../../releases) and run it. That's it.
 
 ## Build from source
 
+The `.csproj` projects are SDK-style (`net472`), so `dotnet` restores NuGet packages and
+builds them on both Windows and Linux — no Visual Studio or `nuget.exe` required.
+
+### Windows
+
 **Requirements**
 
-- Visual Studio 2022 with .NET Framework 4.7.2 workload
+- .NET SDK 8.0+
 - Rust with `i686-pc-windows-msvc` target (`rustup target add i686-pc-windows-msvc`)
-- `nuget.exe` in `.tools/`
-
-**Steps**
 
 ```powershell
 # 1. Build the Rust FFI DLL
 cargo build --release --target i686-pc-windows-msvc --manifest-path akatsuki-pp-ffi\Cargo.toml
 
-# 2. Restore & build the runtime DLL
-.\.tools\nuget.exe restore patcher\OsuPatcher.Runtime\packages.config -PackagesDirectory packages
-& 'C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\MSBuild.exe' patcher\OsuPatcher.Runtime.sln /p:Configuration=Release /p:Platform="Any CPU"
+# 2. Build the runtime DLL (dotnet restores PackageReferences automatically)
+dotnet build patcher\OsuPatcher.Runtime\OsuPatcher.Runtime.csproj -c Release
 
-# 3. Copy DLLs into the UI payload
+# 3. Copy DLLs into the UI payload (they get embedded into the single exe)
 Copy-Item patcher\OsuPatcher.Runtime\bin\Release\OsuPatcher.Runtime.dll patcher-ui\OsuPatcher.UI\Payload\ -Force
 Copy-Item patcher\OsuPatcher.Runtime\bin\Release\0Harmony.dll            patcher-ui\OsuPatcher.UI\Payload\ -Force
 Copy-Item akatsuki-pp-ffi\target\i686-pc-windows-msvc\release\akatsuki_pp_ffi.dll patcher-ui\OsuPatcher.UI\Payload\ -Force
 
-# 4. Restore & build the UI (produces a single patcher-ui.exe)
-.\.tools\nuget.exe restore patcher-ui\OsuPatcher.UI\packages.config -PackagesDirectory patcher-ui\packages
-& 'C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\MSBuild.exe' patcher-ui\OsuPatcher.UI.sln /p:Configuration=Release /p:Platform="Any CPU"
+# 4. Build the UI (produces a single patcher-ui.exe)
+dotnet build patcher-ui\OsuPatcher.UI\OsuPatcher.UI.csproj -c Release
 ```
 
 Output: `patcher-ui\OsuPatcher.UI\bin\Release\patcher-ui.exe`
+
+### Linux
+
+Run `./build.sh`. It cross-compiles the Rust FFI DLL for Windows and builds the .NET
+projects with `dotnet`. **Requirements** (Fedora package names):
+
+- `cargo`, `rust-std-static-i686-pc-windows-gnu`, `mingw32-gcc`
+- The **Microsoft build** of the .NET 8 SDK — distro/source-built SDKs strip the
+  WindowsDesktop SDK needed to compile WPF. Install with:
+  `curl -sL https://dot.net/v1/dotnet-install.sh | bash -s -- --channel 8.0`
+
+```bash
+./build.sh
+```
+
+Output: `patcher-ui/OsuPatcher.UI/bin/Release/patcher-ui.exe`
 
 ## Credits
 
