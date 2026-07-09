@@ -59,6 +59,10 @@ namespace OsuPatcher.Runtime.Patches
             if (!Options.Options.Config.PerformanceCalculator)
                 return;
 
+            // Skip realtime pp while watching a replay / spectating (the counter isn't shown then).
+            if (GameState.IsWatchingReplay(playerInstance))
+                return;
+
             EnsureScoreFieldResolved(playerInstance);
 
             if (_currentScore == null)

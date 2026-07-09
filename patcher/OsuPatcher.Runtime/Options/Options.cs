@@ -44,7 +44,7 @@ namespace OsuPatcher.Runtime.Options
             Section section = new Section("Patches");
             section.SetChildren(optionsChildren);
 
-            Section credit = new Section("osu!somtum patcher v1.0 — somtum.fun");
+            Section credit = new Section("osu!somtum patcher v1.1 — somtum.fun");
 
             Array sectionChildren = Element.CreateArray(section, credit);
             

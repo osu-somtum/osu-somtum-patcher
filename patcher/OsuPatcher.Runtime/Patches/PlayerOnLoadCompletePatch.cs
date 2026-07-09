@@ -44,6 +44,10 @@ namespace OsuPatcher.Runtime.Patches
             if (!Options.Options.Config.PerformanceCalculator)
                 return;
 
+            // Don't show the realtime pp counter while watching a replay / spectating.
+            if (GameState.IsWatchingReplay(playerInstance))
+                return;
+
             var ppText = new pSpriteText("0", "score", 0, 
                 Fields.TopLeft, Origins.Custom, Clocks.Game, 0, 130, 0.92f, true, Color.White, true, SkinSource.All);
             ppText.TextConstantSpacing = true;
