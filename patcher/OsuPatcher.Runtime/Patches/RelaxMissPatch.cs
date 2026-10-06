@@ -74,6 +74,6 @@ namespace OsuPatcher.Runtime.Patches
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool PatchRelax() => !Options.Options.Config.PatchRelax;
+        public static bool PatchRelax() => !(Options.Options.Config.PatchRelax || Options.Options.Config.PatchAutopilot);
     }
 }

@@ -14,6 +14,7 @@ namespace OsuPatcher.Runtime
         public event ConfigChangedHandler OnConfigChanged;
 
         public bool PatchRelax { get; set; } = true;
+        public bool PatchAutopilot { get; set; } = true;
         public bool TransitionTime { get; set; } = true;
         public bool PerformanceCalculator { get; set; } = true;
 
@@ -56,6 +57,7 @@ namespace OsuPatcher.Runtime
         }
 
         public void TogglePatchRelax(object sender, EventArgs e) => ToggleSetting(nameof(PatchRelax));
+        public void TogglePatchAutopilot(object sender, EventArgs e) => ToggleSetting(nameof(PatchAutopilot));
         public void ToggleTransitionTime(object sender, EventArgs e) => ToggleSetting(nameof(TransitionTime));
         public void TogglePerformanceCalculator(object sender, EventArgs e) => ToggleSetting(nameof(PerformanceCalculator));
     }

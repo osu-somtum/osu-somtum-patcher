@@ -21,10 +21,15 @@ namespace OsuPatcher.Runtime.Options
         /// <param name="instance">The instance of the options menu.</param>
         public static void InitializeOptions(object instance)
         {
-            CheckBox alwaysShowMisses = new CheckBox("Patch Relax/Autopilot",
-                "Removes relax/autopilot limitation, Allows you to see miss, Combo break sound and ranking panel.",
+            CheckBox alwaysShowMisses = new CheckBox("Patch Relax",
+                "Removes relax limitation, Allows you to see miss, Combo break sound and ranking panel.",
                 Config.PatchRelax,
                 Config.TogglePatchRelax);
+
+            CheckBox patchAutopilot = new CheckBox("Patch Autopilot",
+                "Removes autopilot limitation, Allows you to see miss, Combo break sound and ranking panel.",
+                Config.PatchAutopilot,
+                Config.TogglePatchAutopilot);
 
             CheckBox transitionTime = new CheckBox("Faster Transition time",
                 "Control how fast the screen fades in and out. Turn this on for quicker transitions.",
@@ -38,6 +43,7 @@ namespace OsuPatcher.Runtime.Options
 
             Array optionsChildren = Element.CreateArray(
                 alwaysShowMisses,
+                patchAutopilot,
                 transitionTime,
                 performanceCalculator);
 

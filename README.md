@@ -11,7 +11,8 @@
 - Single `patcher-ui.exe` — no extra files needed
 - Dark borderless UI with auto-inject: detects running osu!, or launches it for you
 - In-game settings panel (magic wand icon) with toggles for:
-  - Relax / Autopilot patches
+  - Relax patch
+  - Autopilot patch
   - Faster transition time
   - Akatsuki performance calculator
 

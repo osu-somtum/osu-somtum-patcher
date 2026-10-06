@@ -44,6 +44,6 @@ namespace OsuPatcher.Runtime.Patches
         /// Checks if Relax patch is enabled.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool PatchRelax() => !Options.Options.Config.PatchRelax;
+        public static bool PatchRelax() => !(Options.Options.Config.PatchRelax || Options.Options.Config.PatchAutopilot);
     }
 }
