@@ -1,7 +1,7 @@
 <Window x:Class="OsuPatcher.UI.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="osu!somtum patcher"
+        Title="somtum patcher"
         Width="440" Height="440"
         WindowStyle="None"
         AllowsTransparency="True"
@@ -81,7 +81,7 @@
                 <Image x:Name="LogoImage" Stretch="Uniform" MaxHeight="170" Margin="28,0"
                        Source="pack://application:,,,/Assets/logo.png"
                        RenderOptions.BitmapScalingMode="HighQuality"/>
-                <TextBlock x:Name="LogoPlaceholder" Text="osu!somtum"
+                <TextBlock x:Name="LogoPlaceholder" Text="somtum"
                            FontSize="44" FontWeight="Bold" Foreground="#EDEDED"
                            HorizontalAlignment="Center" VerticalAlignment="Center"
                            Visibility="Collapsed"/>

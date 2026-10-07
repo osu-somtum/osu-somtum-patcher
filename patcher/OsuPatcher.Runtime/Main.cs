@@ -22,7 +22,7 @@ namespace OsuPatcher.Runtime
                 // now patchall
                 Harmony.PatchAll(typeof(Main).Assembly);
 
-                NotificationManager.ShowMessageMassive("osu!somtum patcher is now initialized!",
+                NotificationManager.ShowMessageMassive("somtum patcher is now initialized!",
                     5000,
                     NotificationManager.NotificationType.Warning
                 );
