@@ -11,14 +11,14 @@ namespace OsuPatcher.Runtime.Patches
     /// <summary>
     /// Shows the miss ("X") burst under Relax/Autopilot.
     ///
-    /// osu! creates the miss sprite and adds it to the sprite manager unconditionally, but the
+    /// The game creates the miss sprite and adds it to the sprite manager unconditionally, but the
     /// fade/scale transformations that make it visible are only applied when
     /// <c>hitValue == miss &amp;&amp; !Replay &amp;&amp; !Watching</c>. Under relax osu drives input in a
     /// replay-like state, so those transformations are skipped and the sprite never appears.
     ///
     /// We anchor on the miss comparison, then rewrite each guard flag to <c>flag &amp; PatchRelax()</c>
     /// so the guard is neutralised while the patch is enabled. This is:
-    ///   * anchored on the instruction SHAPE, not an absolute index (osu! updates shift offsets —
+    ///   * anchored on the instruction SHAPE, not an absolute index (game updates shift offsets —
     ///     the old hard-coded index 664 had drifted onto an unrelated instruction), and
     ///   * insert-only — no instruction is removed, so no branch label can be orphaned and the
     ///     result is trivially valid IL.
@@ -26,7 +26,7 @@ namespace OsuPatcher.Runtime.Patches
     [HarmonyPatch]
     internal class PatchRelaxMiss
     {
-        // osu! compares the hit result against this sentinel to detect a miss.
+        // The game compares the hit result against this sentinel to detect a miss.
         private const int MissHitValue = -131072;
 
         [HarmonyTargetMethod]

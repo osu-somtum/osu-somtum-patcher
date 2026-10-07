@@ -31,7 +31,7 @@ namespace OsuPatcher.UI
         }
 
         // Headless entry: --inject-only=<pid>
-        //   The combined pad-krapow injector launches osu! with pkms.dll attached,
+        //   The combined pad-krapow injector launches the game with pkms.dll attached,
         //   waits for the AC subsystems to initialise, then spawns us in this mode
         //   to attach the managed patcher runtime without ever showing a window.
         //   Prints "ok" / "error: ..." so the parent can surface failures.

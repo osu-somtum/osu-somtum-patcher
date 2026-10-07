@@ -6,10 +6,10 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("OsuPatcher.Runtime")]
-[assembly: AssemblyDescription("Injected runtime patches for osu! patcher")]
+[assembly: AssemblyDescription("Injected runtime patches for somtum patcher")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("osu! patcher")]
+[assembly: AssemblyProduct("somtum patcher")]
 [assembly: AssemblyCopyright("Copyright (c) 2026")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

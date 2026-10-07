@@ -1,7 +1,7 @@
 <div align="center">
   <img src="https://assets.somtum.fun/frontend/images/newlogo.png" alt="somtum logo" width="220"/>
-  <h1>osu!somtum patcher</h1>
-  <p>A single-exe injector that patches osu! to connect to <a href="https://somtum.fun">somtum.fun</a>.</p>
+  <h1>somtum patcher</h1>
+  <p>A single-exe injector that patches the game client to connect to <a href="https://somtum.fun">somtum.fun</a>.</p>
 </div>
 
 ---
@@ -9,7 +9,7 @@
 ## Features
 
 - Single `patcher-ui.exe` — no extra files needed
-- Dark borderless UI with auto-inject: detects running osu!, or launches it for you
+- Dark borderless UI with auto-inject: detects the running game, or launches it for you
 - In-game settings panel (magic wand icon) with toggles for:
   - Relax patch
   - Autopilot patch
@@ -20,8 +20,8 @@
 
 Download `patcher-ui.exe` from [Releases](../../releases) and run it. That's it.
 
-- If osu! is already running on `somtum.fun`, it injects immediately and closes.
-- If not, it launches osu! and injects automatically.
+- If the game is already running on `somtum.fun`, it injects immediately and closes.
+- If not, it launches the game and injects automatically.
 
 ## Build from source
 
@@ -72,3 +72,7 @@ Output: `patcher-ui/OsuPatcher.UI/bin/Release/patcher-ui.exe`
 ## Credits
 
 - Patcher runtime source — [remeliah/osu-patcher](https://github.com/remeliah/osu-patcher)
+
+## Disclaimer
+
+This project is not affiliated with, endorsed by, or sponsored by ppy Pty Ltd.

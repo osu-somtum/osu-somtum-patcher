@@ -62,7 +62,7 @@ namespace OsuPatcher.UI
                 Arguments = $"-devserver {DevServer}",
                 UseShellExecute = false,
             };
-            return Process.Start(psi) ?? throw new Exception("Failed to start osu!.");
+            return Process.Start(psi) ?? throw new Exception("Failed to start the game.");
         }
 
         public static uint WaitForInjectable(Process started, CancellationToken token, TimeSpan timeout)
@@ -77,8 +77,8 @@ namespace OsuPatcher.UI
                     var running = FindRunningOsu();
                     if (running.State == OsuState.RunningValid) return running.Pid;
                     if (running.State == OsuState.RunningInvalid)
-                        throw new Exception($"osu! is already running but not on -devserver {DevServer}.");
-                    throw new Exception("osu! exited before it could be injected.");
+                        throw new Exception($"The game is already running but not on -devserver {DevServer}.");
+                    throw new Exception("The game exited before it could be injected.");
                 }
 
                 started.Refresh();
@@ -89,7 +89,7 @@ namespace OsuPatcher.UI
                 }
                 Thread.Sleep(200);
             }
-            throw new Exception("Timed out waiting for osu! to start.");
+            throw new Exception("Timed out waiting for the game to start.");
         }
 
         /// <summary>

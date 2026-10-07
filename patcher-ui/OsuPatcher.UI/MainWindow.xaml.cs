@@ -33,16 +33,16 @@ namespace OsuPatcher.UI
             switch (osu.State)
             {
                 case InjectorCore.OsuState.RunningValid:
-                    SetStatus("osu! is running — ready to inject", OkBrush);
+                    SetStatus("Game is running — ready to inject", OkBrush);
                     break;
                 case InjectorCore.OsuState.RunningInvalid:
-                    SetStatus($"osu! is running but not on -devserver {InjectorCore.DevServer}.\nClose it first.", ErrorBrush);
+                    SetStatus($"Game is running but not on -devserver {InjectorCore.DevServer}.\nClose it first.", ErrorBrush);
                     break;
                 case InjectorCore.OsuState.NotRunning when KnownOsuPath() != null:
-                    SetStatus("osu! is not running — Inject will launch it", NeutralBrush);
+                    SetStatus("Game is not running — Inject will launch it", NeutralBrush);
                     break;
                 default:
-                    SetStatus("osu! could not be found\nStart the game or locate it", ErrorBrush);
+                    SetStatus("Game could not be found\nStart the game or locate it", ErrorBrush);
                     LocateLink.Visibility = Visibility.Visible;
                     break;
             }
@@ -83,7 +83,7 @@ namespace OsuPatcher.UI
             var osu = InjectorCore.FindRunningOsu();
 
             if (osu.State == InjectorCore.OsuState.RunningInvalid)
-                throw new Exception($"osu! is running but not on -devserver {InjectorCore.DevServer}. Close it first.");
+                throw new Exception($"Game is running but not on -devserver {InjectorCore.DevServer}. Close it first.");
 
             if (osu.State == InjectorCore.OsuState.RunningValid)
             {
@@ -114,8 +114,8 @@ namespace OsuPatcher.UI
             {
                 var dialog = new OpenFileDialog
                 {
-                    Title  = "Locate osu!.exe",
-                    Filter = "osu! executable (osu!.exe)|osu!.exe|Executables (*.exe)|*.exe",
+                    Title  = "Locate game executable",
+                    Filter = "Game executable|osu!.exe|Executables (*.exe)|*.exe",
                     FileName = "osu!.exe",
                 };
                 return dialog.ShowDialog(this) == true ? dialog.FileName : null;
